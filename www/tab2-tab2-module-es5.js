@@ -209,25 +209,65 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }
             }, _callee2, this);
           }));
-        } // Save picture to file on device
-
+        }
       }, {
-        key: "savePicture",
-        value: function savePicture(cameraPhoto) {
+        key: "addNewFromGallery",
+        value: function addNewFromGallery() {
           return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-            var base64Data, fileName, savedFile;
+            var capturedPhoto, savedImageFile;
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
                     _context3.next = 2;
+                    return Camera.getPhoto({
+                      resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["CameraResultType"].Uri,
+                      source: _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["CameraSource"].Photos,
+                      quality: 100 // highest quality (0 to 100)
+
+                    });
+
+                  case 2:
+                    capturedPhoto = _context3.sent;
+                    _context3.next = 5;
+                    return this.savePicture(capturedPhoto);
+
+                  case 5:
+                    savedImageFile = _context3.sent;
+                    // Add new photo to Photos array
+                    this.photos.unshift(savedImageFile); // Cache all photo data for future retrieval
+
+                    Storage.set({
+                      key: this.PHOTO_STORAGE,
+                      value: JSON.stringify(this.photos)
+                    });
+
+                  case 8:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3, this);
+          }));
+        } // Save picture to file on device
+
+      }, {
+        key: "savePicture",
+        value: function savePicture(cameraPhoto) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            var base64Data, fileName, savedFile;
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              while (1) {
+                switch (_context4.prev = _context4.next) {
+                  case 0:
+                    _context4.next = 2;
                     return this.readAsBase64(cameraPhoto);
 
                   case 2:
-                    base64Data = _context3.sent;
+                    base64Data = _context4.sent;
                     // Write the file to the data directory
                     fileName = new Date().getTime() + '.jpeg';
-                    _context3.next = 6;
+                    _context4.next = 6;
                     return Filesystem.writeFile({
                       path: fileName,
                       data: base64Data,
@@ -235,90 +275,90 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 6:
-                    savedFile = _context3.sent;
+                    savedFile = _context4.sent;
 
                     if (!this.platform.is('hybrid')) {
-                      _context3.next = 11;
+                      _context4.next = 11;
                       break;
                     }
 
-                    return _context3.abrupt("return", {
+                    return _context4.abrupt("return", {
                       filepath: savedFile.uri,
                       webviewPath: _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["Capacitor"].convertFileSrc(savedFile.uri)
                     });
 
                   case 11:
-                    return _context3.abrupt("return", {
+                    return _context4.abrupt("return", {
                       filepath: fileName,
                       webviewPath: cameraPhoto.webPath
                     });
 
                   case 12:
                   case "end":
-                    return _context3.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee3, this);
+            }, _callee4, this);
           }));
         } // Read camera photo into base64 format based on the platform the app is running on
 
       }, {
         key: "readAsBase64",
         value: function readAsBase64(cameraPhoto) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
             var file, response, blob;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
                     if (!this.platform.is('hybrid')) {
-                      _context4.next = 7;
+                      _context5.next = 7;
                       break;
                     }
 
-                    _context4.next = 3;
+                    _context5.next = 3;
                     return Filesystem.readFile({
                       path: cameraPhoto.path
                     });
 
                   case 3:
-                    file = _context4.sent;
-                    return _context4.abrupt("return", file.data);
+                    file = _context5.sent;
+                    return _context5.abrupt("return", file.data);
 
                   case 7:
-                    _context4.next = 9;
+                    _context5.next = 9;
                     return fetch(cameraPhoto.webPath);
 
                   case 9:
-                    response = _context4.sent;
-                    _context4.next = 12;
+                    response = _context5.sent;
+                    _context5.next = 12;
                     return response.blob();
 
                   case 12:
-                    blob = _context4.sent;
-                    _context4.next = 15;
+                    blob = _context5.sent;
+                    _context5.next = 15;
                     return this.convertBlobToBase64(blob);
 
                   case 15:
-                    return _context4.abrupt("return", _context4.sent);
+                    return _context5.abrupt("return", _context5.sent);
 
                   case 16:
                   case "end":
-                    return _context4.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee5, this);
           }));
         } // Delete picture by removing it from reference data and the filesystem
 
       }, {
         key: "deletePicture",
         value: function deletePicture(photo, position) {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
             var filename;
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
                     // Remove this photo from the Photos reference data array
                     this.photos.splice(position, 1); // Update photos array cache by overwriting the existing photo array
@@ -329,7 +369,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }); // delete photo file from filesystem
 
                     filename = photo.filepath.substr(photo.filepath.lastIndexOf('/') + 1);
-                    _context5.next = 5;
+                    _context6.next = 5;
                     return Filesystem.deleteFile({
                       path: filename,
                       directory: _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["FilesystemDirectory"].Data
@@ -337,10 +377,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 5:
                   case "end":
-                    return _context5.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee5, this);
+            }, _callee6, this);
           }));
         }
       }]);
@@ -533,9 +573,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         var _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "ion-col", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "ion-col", 8);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "ion-img", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "ion-img", 9);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function Tab2Page_ion_col_11_Template_ion_img_click_1_listener() {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
@@ -563,44 +603,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }
 
     var Tab2Page = /*#__PURE__*/function () {
-      function Tab2Page(photoService, actionSheetController) {
+      function Tab2Page(photoService, actionSheetController, plt, actionSheetCtrl) {
         _classCallCheck(this, Tab2Page);
 
         this.photoService = photoService;
         this.actionSheetController = actionSheetController;
+        this.plt = plt;
+        this.actionSheetCtrl = actionSheetCtrl;
       }
 
       _createClass(Tab2Page, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
-              while (1) {
-                switch (_context6.prev = _context6.next) {
-                  case 0:
-                    _context6.next = 2;
-                    return this.photoService.loadSaved();
-
-                  case 2:
-                  case "end":
-                    return _context6.stop();
-                }
-              }
-            }, _callee6, this);
-          }));
-        }
-      }, {
-        key: "showActionSheet",
-        value: function showActionSheet(photo, position) {
           return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-            var _this = this;
-
-            var actionSheet;
             return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
                 switch (_context7.prev = _context7.next) {
                   case 0:
                     _context7.next = 2;
+                    return this.photoService.loadSaved();
+
+                  case 2:
+                  case "end":
+                    return _context7.stop();
+                }
+              }
+            }, _callee7, this);
+          }));
+        }
+      }, {
+        key: "showActionSheet",
+        value: function showActionSheet(photo, position) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            var _this = this;
+
+            var actionSheet;
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              while (1) {
+                switch (_context8.prev = _context8.next) {
+                  case 0:
+                    _context8.next = 2;
                     return this.actionSheetController.create({
                       header: 'Photos',
                       buttons: [{
@@ -620,16 +662,61 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 2:
-                    actionSheet = _context7.sent;
-                    _context7.next = 5;
+                    actionSheet = _context8.sent;
+                    _context8.next = 5;
                     return actionSheet.present();
 
                   case 5:
                   case "end":
-                    return _context7.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee7, this);
+            }, _callee8, this);
+          }));
+        }
+      }, {
+        key: "selectImageSource",
+        value: function selectImageSource() {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            var _this2 = this;
+
+            var buttons, actionSheet;
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+              while (1) {
+                switch (_context9.prev = _context9.next) {
+                  case 0:
+                    buttons = [{
+                      text: 'Take Photo',
+                      icon: 'camera',
+                      handler: function handler() {
+                        //this.addImage(CameraSource.Camera);
+                        _this2.photoService.addNewToGallery();
+                      }
+                    }, {
+                      text: 'Choose From Photos Photo',
+                      icon: 'image',
+                      handler: function handler() {
+                        //this.addImage(CameraSource.Photos);
+                        _this2.photoService.addNewFromGallery();
+                      }
+                    }];
+                    _context9.next = 3;
+                    return this.actionSheetCtrl.create({
+                      header: 'Select Image Source',
+                      buttons: buttons
+                    });
+
+                  case 3:
+                    actionSheet = _context9.sent;
+                    _context9.next = 6;
+                    return actionSheet.present();
+
+                  case 6:
+                  case "end":
+                    return _context9.stop();
+                }
+              }
+            }, _callee9, this);
           }));
         }
       }]);
@@ -638,15 +725,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     Tab2Page.ɵfac = function Tab2Page_Factory(t) {
-      return new (t || Tab2Page)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_photo_service__WEBPACK_IMPORTED_MODULE_3__["PhotoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"]));
+      return new (t || Tab2Page)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_photo_service__WEBPACK_IMPORTED_MODULE_3__["PhotoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"]));
     };
 
     Tab2Page.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
       type: Tab2Page,
       selectors: [["app-tab2"]],
-      decls: 15,
+      decls: 18,
       vars: 1,
-      consts: [["collapse", "condense"], ["size", "large"], ["size", "6", 4, "ngFor", "ngForOf"], ["vertical", "bottom", "horizontal", "center", "slot", "fixed"], [3, "click"], ["name", "camera"], ["size", "6"], [3, "src", "click"]],
+      consts: [["collapse", "condense"], ["size", "large"], ["size", "6", 4, "ngFor", "ngForOf"], ["vertical", "bottom", "horizontal", "center", "slot", "fixed"], [3, "click"], ["name", "camera"], ["vertical", "bottom", "horizontal", "end", "slot", "fixed"], ["name", "add"], ["size", "6"], [3, "src", "click"]],
       template: function Tab2Page_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "ion-header");
@@ -703,6 +790,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "ion-fab", 6);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "ion-fab-button", 4);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function Tab2Page_Template_ion_fab_button_click_16_listener() {
+            return ctx.selectImageSource();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](17, "ion-icon", 7);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         }
 
@@ -728,6 +829,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }], function () {
         return [{
           type: _services_photo_service__WEBPACK_IMPORTED_MODULE_3__["PhotoService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"]
         }];
