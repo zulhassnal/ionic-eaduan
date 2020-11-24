@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.demo.pg.cap.ng",
+  "appName": "Aduan JAS",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

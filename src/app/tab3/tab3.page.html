@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Borang Aduan
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Coordinates</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>Latitude: {{ latitude }}</ion-item>
+      <ion-item>Longitude: {{ longitude }}</ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item>
+    <ion-button (click)="reverse()">get location</ion-button>
+  </ion-item>
+
+  <ion-item>
+    <ion-list>Poskod : {{ location_text.postalCode }}</ion-list>
+  </ion-item>
+
+  <ion-item>
+    <ion-list>Negara : {{ location_text.countryName }}</ion-list>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Butiran Aduan</ion-label>
+    <ion-textarea rows="6" cols="20" placeholder="Butiran Aduan"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-button>Hantar</ion-button>
+  </ion-item>
+</ion-content>
