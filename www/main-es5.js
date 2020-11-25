@@ -225,7 +225,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
-    var routes = [{
+    var routes = [// {
+    //   path: '',
+    //   loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    // },
+    {
       path: '',
       loadChildren: function loadChildren() {
         return __webpack_require__.e(
@@ -234,6 +238,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /*! ./tabs/tabs.module */
         "./src/app/tabs/tabs.module.ts")).then(function (m) {
           return m.TabsPageModule;
+        });
+      }
+    }, {
+      path: 'login',
+      loadChildren: function loadChildren() {
+        return __webpack_require__.e(
+        /*! import() | pages-login-login-module */
+        "pages-login-login-module").then(__webpack_require__.bind(null,
+        /*! ./pages/login/login.module */
+        "./src/app/pages/login/login.module.ts")).then(function (m) {
+          return m.LoginPageModule;
         });
       }
     }];

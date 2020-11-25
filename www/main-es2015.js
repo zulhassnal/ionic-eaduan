@@ -497,9 +497,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
+    // {
+    //   path: '',
+    //   loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    // },
     {
         path: '',
         loadChildren: () => __webpack_require__.e(/*! import() | tabs-tabs-module */ "tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./tabs/tabs.module */ "./src/app/tabs/tabs.module.ts")).then(m => m.TabsPageModule)
+    },
+    {
+        path: 'login',
+        loadChildren: () => __webpack_require__.e(/*! import() | pages-login-login-module */ "pages-login-login-module").then(__webpack_require__.bind(null, /*! ./pages/login/login.module */ "./src/app/pages/login/login.module.ts")).then(m => m.LoginPageModule)
     }
 ];
 class AppRoutingModule {

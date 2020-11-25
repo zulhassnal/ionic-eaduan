@@ -91,7 +91,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }]
     }, {
       path: '',
-      redirectTo: '/tabs/tab1',
+      redirectTo: '/login',
       pathMatch: 'full'
     }];
 

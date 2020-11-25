@@ -59,7 +59,7 @@ const routes = [
     },
     {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/login',
         pathMatch: 'full'
     }
 ];
