@@ -16,7 +16,10 @@ export class Tab2Page {
     private plt: Platform, private actionSheetCtrl: ActionSheetController
     ) {}
 
-  async ngOnInit() {
+  // async ngOnInit() {
+  //   await this.photoService.loadSaved();
+  // }
+  async ionViewDidEnter(){
     await this.photoService.loadSaved();
   }
 

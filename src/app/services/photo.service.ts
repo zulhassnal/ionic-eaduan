@@ -165,6 +165,29 @@ export class PhotoService {
     };
     reader.readAsDataURL(blob);
   });
+
+  public async deleteAllPicture() {
+    // Retrieve cached photo array data
+    const photoList = await Storage.get({ key: this.PHOTO_STORAGE });
+    this.photos = JSON.parse(photoList.value) || [];
+
+    // If running on the web...
+    if (!this.platform.is('hybrid')) {
+      // Display the photo by reading into base64 format
+      for (let photo of this.photos) {
+        // delete photo file from filesystem
+        await Filesystem.deleteFile({
+            path: photo.filepath,
+            directory: FilesystemDirectory.Data
+        });
+      }
+    }
+    Storage.clear();
+    // Storage.set({
+    //   key: this.PHOTO_STORAGE,
+    //   value: ""
+    // });
+  }
 }
 
 export interface Photo {
