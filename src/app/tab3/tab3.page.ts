@@ -11,6 +11,7 @@ export class Tab3Page {
   latitude: number;
   longitude: number;
   location_text: any = {};
+  url : string;
   constructor(
     private nativeGeocoder: NativeGeocoder
   ) {
@@ -21,6 +22,7 @@ export class Tab3Page {
     const position = await Geolocation.getCurrentPosition();
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
+    this.url = '<iframe src="https://maps.google.com/maps?q='+ this.latitude+ ', '+ this.longitude + '&z=15&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>';
   }
 
   reverse(){

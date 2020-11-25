@@ -17,9 +17,16 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-item>
-    <ion-button (click)="reverse()">get location</ion-button>
-  </ion-item>
+  <ion-row>
+    <ion-col>
+      <iframe src="https://maps.google.com/maps?q=2.807, 101.7634&z=15&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button type="submit" expand="block" (click)="reverse()">Lokasi</ion-button>
+    </ion-col>
+  </ion-row>
 
   <ion-item>
     <ion-list>Poskod : {{ location_text.postalCode }}</ion-list>
@@ -34,7 +41,9 @@
     <ion-textarea rows="6" cols="20" placeholder="Butiran Aduan"></ion-textarea>
   </ion-item>
 
-  <ion-item>
-    <ion-button>Hantar</ion-button>
-  </ion-item>
+  <ion-row>
+    <ion-col>
+      <ion-button type="submit" expand="block">Hantar</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>
