@@ -251,6 +251,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return m.LoginPageModule;
         });
       }
+    }, {
+      path: 'list-aduan',
+      loadChildren: function loadChildren() {
+        return __webpack_require__.e(
+        /*! import() | pages-list-aduan-list-aduan-module */
+        "pages-list-aduan-list-aduan-module").then(__webpack_require__.bind(null,
+        /*! ./pages/list-aduan/list-aduan.module */
+        "./src/app/pages/list-aduan/list-aduan.module.ts")).then(function (m) {
+          return m.ListAduanPageModule;
+        });
+      }
     }];
 
     var AppRoutingModule = function AppRoutingModule() {

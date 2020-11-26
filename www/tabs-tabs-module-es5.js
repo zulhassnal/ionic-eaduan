@@ -47,9 +47,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         children: [{
           path: '',
           loadChildren: function loadChildren() {
-            return Promise.all(
+            return __webpack_require__.e(
             /*! import() | tab1-tab1-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab1-tab1-module")]).then(__webpack_require__.bind(null,
+            "tab1-tab1-module").then(__webpack_require__.bind(null,
             /*! ../tab1/tab1.module */
             "./src/app/tab1/tab1.module.ts")).then(function (m) {
               return m.Tab1PageModule;
@@ -63,7 +63,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           loadChildren: function loadChildren() {
             return Promise.all(
             /*! import() | tab2-tab2-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab2-tab2-module")]).then(__webpack_require__.bind(null,
+            [__webpack_require__.e("default~tab2-tab2-module~tab3-tab3-module"), __webpack_require__.e("tab2-tab2-module")]).then(__webpack_require__.bind(null,
             /*! ../tab2/tab2.module */
             "./src/app/tab2/tab2.module.ts")).then(function (m) {
               return m.Tab2PageModule;
@@ -77,7 +77,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           loadChildren: function loadChildren() {
             return Promise.all(
             /*! import() | tab3-tab3-module */
-            [__webpack_require__.e("common"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null,
+            [__webpack_require__.e("default~tab2-tab2-module~tab3-tab3-module"), __webpack_require__.e("tab3-tab3-module")]).then(__webpack_require__.bind(null,
             /*! ../tab3/tab3.module */
             "./src/app/tab3/tab3.module.ts")).then(function (m) {
               return m.Tab3PageModule;

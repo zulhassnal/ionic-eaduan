@@ -508,6 +508,10 @@ const routes = [
     {
         path: 'login',
         loadChildren: () => __webpack_require__.e(/*! import() | pages-login-login-module */ "pages-login-login-module").then(__webpack_require__.bind(null, /*! ./pages/login/login.module */ "./src/app/pages/login/login.module.ts")).then(m => m.LoginPageModule)
+    },
+    {
+        path: 'list-aduan',
+        loadChildren: () => __webpack_require__.e(/*! import() | pages-list-aduan-list-aduan-module */ "pages-list-aduan-list-aduan-module").then(__webpack_require__.bind(null, /*! ./pages/list-aduan/list-aduan.module */ "./src/app/pages/list-aduan/list-aduan.module.ts")).then(m => m.ListAduanPageModule)
     }
 ];
 class AppRoutingModule {
