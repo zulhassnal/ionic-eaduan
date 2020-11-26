@@ -16,4 +16,8 @@ export class Tab1Page {
     this.router.navigate(['login']);
   }
 
+  goToListAduan(){
+    this.router.navigate(['list-aduan']);
+  }
+
 }

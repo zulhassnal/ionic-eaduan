@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Geolocation} from '@capacitor/core';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { Photo, PhotoService } from '../services/photo.service';
+import { Router } from  "@angular/router";
 
 @Component({
   selector: 'app-tab3',
@@ -15,7 +16,8 @@ export class Tab3Page {
   url : string;
   constructor(
     private nativeGeocoder: NativeGeocoder,
-    public photoService: PhotoService, 
+    public photoService: PhotoService,
+    private router: Router,
   ) {
     this.getLocation();
   }
@@ -43,6 +45,8 @@ export class Tab3Page {
   sendAduan(){
     //delete file storage
     this.photoService.deleteAllPicture();
+    alert("Aduan telah dihantar");
+    this.router.navigate(['tabs/tab1']);
   }
 
   /*
