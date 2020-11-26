@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from  "@angular/router";
 
 @Component({
   selector: 'app-list-aduan',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListAduanPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+  }
+
+  back(){
+    this.router.navigate(['tabs/tab1']);
   }
 
 }
