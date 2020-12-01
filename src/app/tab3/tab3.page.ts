@@ -3,6 +3,8 @@ import { Geolocation} from '@capacitor/core';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { Photo, PhotoService } from '../services/photo.service';
 import { Router } from  "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-tab3',
@@ -14,10 +16,13 @@ export class Tab3Page {
   longitude: number;
   location_text: any = {};
   url : string;
+  form: any = {}
   constructor(
     private nativeGeocoder: NativeGeocoder,
     public photoService: PhotoService,
     private router: Router,
+    private http: HttpClient,
+    public api: ApiService,
   ) {
     this.getLocation();
   }
@@ -43,10 +48,25 @@ export class Tab3Page {
   }
 
   sendAduan(){
-    //delete file storage
-    this.photoService.deleteAllPicture();
-    alert("Aduan telah dihantar");
-    this.router.navigate(['tabs/tab1']);
+    console.log(localStorage.getItem('JAS_PUBLIC_USER'));
+    let user = JSON.parse(localStorage.getItem('JAS_PUBLIC_USER'));
+    this.form.user_id = user.id;
+    this.form.latitude = this.latitude;
+    this.form.longitude = this.longitude;
+    this.form.lokasi = this.location_text.postalCode;
+    console.log(this.form);
+    return this.http.post<any>(this.api.url+'/public-store-aduan', this.form).subscribe(data => {
+      if( data.msg == 'success'){
+        //delete file storage
+        this.photoService.deleteAllPicture();
+        alert("Aduan telah dihantar");
+        this.router.navigate(['tabs/tab1']);
+      }else {
+        alert(data.msg);
+      }
+    }, err =>{
+      console.log(err);
+    });
   }
 
   /*

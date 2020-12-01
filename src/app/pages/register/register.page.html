@@ -15,20 +15,20 @@
     <ion-list>
       <ion-item>
         <ion-label position="stacked" color="primary">Emel</ion-label>
-        <ion-input name="email" type="text" spellcheck="false" autocapitalize="off"
+        <ion-input [(ngModel)]="form.email" name="email" type="text" spellcheck="false" autocapitalize="off"
           required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Katalaluan</ion-label>
-        <ion-input name="password" type="password" required>
+        <ion-input [(ngModel)]="form.password" name="password" type="password" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pengesahan Katalaluan</ion-label>
-        <ion-input name="c_password" type="password" required>
+        <ion-input [(ngModel)]="form.c_password" name="c_password" type="password" required>
         </ion-input>
       </ion-item>
 
@@ -36,7 +36,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="goToHome()" type="submit" expand="block">Daftar</ion-button>
+        <ion-button (click)="goRegister()" type="submit" expand="block">Daftar</ion-button>
       </ion-col>
       <ion-col>
         <ion-button (click)="goToLogion()" color="light" expand="block">Kembali</ion-button>
