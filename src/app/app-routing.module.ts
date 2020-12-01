@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'list-aduan',
     loadChildren: () => import('./pages/list-aduan/list-aduan.module').then( m => m.ListAduanPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   }
 ];
 @NgModule({

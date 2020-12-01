@@ -3,11 +3,11 @@ import { Router } from  "@angular/router";
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class RegisterPage implements OnInit {
 
   constructor(
     private router: Router,
@@ -20,7 +20,8 @@ export class LoginPage implements OnInit {
     this.router.navigate(['tabs/tab1']);
   }
 
-  onSignup() {
-    this.router.navigateByUrl('/register');
+  goToLogion() {
+    this.router.navigateByUrl('/login');
   }
+
 }
